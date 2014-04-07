@@ -1,0 +1,27 @@
+<bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:tx="http://www.springframework.org/schema/tx"
+            xmlns:ctx="http://www.springframework.org/schema/context"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/tx
+            http://www.springframework.org/schema/tx/spring-tx.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <ctx:component-scan base-package="ua.globallogic.eastpaymentservice.repository"/>
+
+    <!--<bean:bean id="template" class="org.springframework.orm.hibernate3.HibernateTemplate">-->
+    <!--<bean:property name="sessionFactory" ref="sessionFactory"/>-->
+    <!--</bean:bean>-->
+
+    <bean:bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+    <bean:property name="configLocation" value="WEB-INF/hibernate-config/hibernate.cfg.xml"/>
+    </bean:bean>
+
+    <bean:bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <bean:property name="sessionFactory" ref="sessionFactory"/>
+    </bean:bean>
+
+</bean:beans>

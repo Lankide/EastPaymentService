@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.url">
+            jdbc:mysql://172.28.147.13:3306/PaymentSystem
+        </property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.username">Kostya</property>
+        <property name="hibernate.connection.password">qwerty</property>
+
+        <mapping class="ua.globallogic.eastpaymentservice.domain.User"/>
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Permission"/>
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Country"/>
+
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Currency"/>
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Account"/>
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Proposal"/>
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Bank"/>
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Company"/>
+        <mapping class="ua.globallogic.eastpaymentservice.domain.Mechanism"/>
+
+    </session-factory>
+</hibernate-configuration>

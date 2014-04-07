@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bean:beans xmlns:bean="http://www.springframework.org/schema/beans"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:sec="http://www.springframework.org/schema/security"
+            xmlns="http://www.springframework.org/schema/security"
+            xmlns:ctx="http://www.springframework.org/schema/context"
+            xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <ctx:component-scan base-package="ua.globallogic.eastpaymentservice.security"/>
+
+    <sec:http use-expressions="true" auto-config="true">
+
+        <!-- Full access -->
+        <sec:intercept-url pattern="/favicon.ico" access="permitAll"/>
+        <sec:intercept-url pattern="/resources/**" access="permitAll"/>
+        <sec:intercept-url pattern="/login" access="permitAll"/>
+
+        <!-- Restricted part -->
+        <sec:intercept-url pattern="/**" access="hasAnyRole('ROLE_INTERNAL_USER', 'ROLE_EXTERNAL_USER')"/>
+        <sec:form-login login-page="/login"
+                        username-parameter="login"
+                        password-parameter="password"
+                        authentication-failure-url="/error"
+                        authentication-success-handler-ref="customAuthenticationSuccessHandler"/>
+        <sec:logout logout-url="/logout" logout-success-url="/login?logout"/>
+        <sec:access-denied-handler error-page="/WEB-INF/views/error/403.jsp"/>
+        <sec:csrf/>
+    </sec:http>
+
+    <sec:authentication-manager>
+        <sec:authentication-provider ref="userAuthenticationProvider"/>
+    </sec:authentication-manager>
+
+    <bean:bean name="securityUserService" class="ua.globallogic.eastpaymentservice.service.UserService"/>
+</bean:beans>
